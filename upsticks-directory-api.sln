@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "upsticks-directory-api", "upsticks-directory-api\upsticks-directory-api.csproj", "{977DA8FE-C8A5-4158-9515-35C6B5F15316}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{977DA8FE-C8A5-4158-9515-35C6B5F15316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{977DA8FE-C8A5-4158-9515-35C6B5F15316}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{977DA8FE-C8A5-4158-9515-35C6B5F15316}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{977DA8FE-C8A5-4158-9515-35C6B5F15316}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F275731-5CD2-42CF-9356-3C3A72D63BB5}
+	EndGlobalSection
+EndGlobal
