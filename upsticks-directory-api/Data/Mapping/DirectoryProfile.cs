@@ -12,9 +12,9 @@ namespace upsticks_directory_api.Data
     {
         public DirectoryProfile()
         {
-            this.CreateMap<EstateAgent, EstateAgentModel>();
-            this.CreateMap<Conveyancer, ConveyancerModel>();
-            this.CreateMap<Removals, RemovalsModel>();
+            this.CreateMap<Addresses, AddressesModel>();
+            this.CreateMap<EstateAgent, EstateAgentModel>();            
+            this.CreateMap<EstateAgentAddress, EstateAgentAddressModel>();
         }
     }
 }

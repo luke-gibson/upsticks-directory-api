@@ -8,15 +8,15 @@ using upsticks_directory_api.Data.Entities;
 
 namespace upsticks_directory_api.Data
 {
-    public interface IRemovalsRepository
+    public interface IAddressesRepository
     {
         //General
         void Add<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveChangesAsync();
 
-        //Removals
-        Task<Removals[]> GetAllRemovalsAsync();
-        Task<Removals[]> GetRemovalsByIdAsync(int companyId);
+        //Estate Agent
+        Task<Addresses[]> GetAllAddressessync();
+        Task<Addresses[]> GetAddressesByIdAsync(int addressId);
     }
 }

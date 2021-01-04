@@ -16,7 +16,7 @@ namespace upsticks_directory_api.Data
         Task<bool> SaveChangesAsync();
 
         //Estate Agent
-        Task<EstateAgent[]> GetAllEstateAgentsAsync();
-        Task<EstateAgent[]> GetEstateAgentByIdAsync(int companyId);
+        Task<EstateAgent[]> GetAllEstateAgentsAsync(bool includeAddresses = false);
+        Task<EstateAgent[]> GetEstateAgentByIdAsync(int estateAgentId);
     }
 }

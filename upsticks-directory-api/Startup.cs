@@ -31,9 +31,9 @@ namespace upsticks_directory_api
         {
             services.AddDbContext<DirectoryContext>();
 
-            services.AddScoped<IConveyancerRepository, ConveyancerRepository>();
+            //services.AddScoped<IConveyancerRepository, ConveyancerRepository>();
             services.AddScoped<IEstateAgentRepository, EstateAgentRepository>();
-            services.AddScoped<IRemovalsRepository, RemovalsRepository>();
+            //services.AddScoped<IRemovalsRepository, RemovalsRepository>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

@@ -5,15 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using upsticks_directory_api.Data.Entities;
+using upsticks_directory_api.Models;
 
 namespace upsticks_directory_api.Data
 {
-    public class ConveyancerRepository : IConveyancerRepository
+    public class EstateAgentRepository : IEstateAgentRepository
     {
         private readonly DirectoryContext _directoryContext;
         private readonly ILogger<DirectoryContext> _logger;
 
-        public ConveyancerRepository(DirectoryContext directoryContext, ILogger<DirectoryContext> logger)
+        public EstateAgentRepository(DirectoryContext directoryContext, ILogger<DirectoryContext> logger)
         {
             _directoryContext = directoryContext;
             _logger = logger;
@@ -39,28 +40,35 @@ namespace upsticks_directory_api.Data
             return (await _directoryContext.SaveChangesAsync()) > 0;
         }
 
-        public async Task<Conveyancer[]> GetAllConveyancersAsync()
+        public async Task<EstateAgent[]> GetAllEstateAgentsAsync(bool includeAddresses = false)
         {
-            _logger.LogInformation($"Getting all Conveyancers");
+            _logger.LogInformation($"Getting all Estate Agents");
 
-            IQueryable<Conveyancer> query = _directoryContext.Conveyancer;
+            IQueryable<EstateAgent> query = _directoryContext.EstateAgent;
+
+            if (includeAddresses)
+            {
+                query = query
+                    .Include(x => x.estateAgentAddresses)
+                    .ThenInclude(y => y.addresses);
+            }
 
             // OrderBy Id
-            query = query.OrderByDescending(c => c.companyId);
+            query = query.OrderByDescending(c => c.estateAgentId);
 
             return await query.ToArrayAsync();
         }
 
-        public async Task<Conveyancer[]> GetConveyancerByIdAsync(int companyId)
+        public async Task<EstateAgent[]> GetEstateAgentByIdAsync(int estateAgentId)
         {
-            _logger.LogInformation($"Getting all Conveyancers with ID {companyId}");
+            _logger.LogInformation($"Getting all EstateAgents with ID {estateAgentId}");
 
-            IQueryable<Conveyancer> query = _directoryContext.Conveyancer;
+            IQueryable<EstateAgent> query = _directoryContext.EstateAgent;
 
             // Add Query
             query = query
-              .Where(x => x.companyId == companyId)
-              .OrderByDescending(x => x.companyId);
+              .Where(x => x.estateAgentId == estateAgentId)
+              .OrderByDescending(x => x.estateAgentId);
 
             return await query.ToArrayAsync();
         }

@@ -9,9 +9,11 @@ namespace upsticks_directory_api.Data.Entities
     public class EstateAgent
     {
         [Key]
-        public int companyId { get; set; }
-        public string companyName { get; set; }
-        public string companyEmail { get; set; }
-        public string companyTelephone { get; set; }
+        public int estateAgentId { get; set; }
+        public string estateAgentName { get; set; }
+        public string estateAgentEmail { get; set; }
+        public string estateAgentTelephone { get; set; }
+        public EstateAgentAddress estateAgentAddresses { get; set; }
+        //public Addresses addresses { get; set; }               
     }
 }

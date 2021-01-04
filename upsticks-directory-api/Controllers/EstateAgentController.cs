@@ -24,11 +24,11 @@ namespace upsticks_directory_api.Controllers
         }
 
         [HttpGet("GetEstateAgent")]
-        public async Task<ActionResult<EstateAgentModel[]>> GetEstateAgent()
+        public async Task<ActionResult<EstateAgentModel[]>> GetEstateAgent(bool includeAddresses = false)
         {
             try
             {
-                var results = await _estateAgentRepository.GetAllEstateAgentsAsync();
+                var results = await _estateAgentRepository.GetAllEstateAgentsAsync(includeAddresses);
 
                 return _mapper.Map<EstateAgentModel[]>(results);
             }
@@ -38,24 +38,24 @@ namespace upsticks_directory_api.Controllers
             }
         }
 
-        [HttpGet("GetEstateAgentById")]
-        public async Task<ActionResult<EstateAgentModel[]>> GetEstateAgentById(int companyId)
-        {
-            try
-            {
-                var results = await _estateAgentRepository.GetEstateAgentByIdAsync(companyId);
+        //[HttpGet("GetEstateAgentById")]
+        //public async Task<ActionResult<EstateAgentModel[]>> GetEstateAgentById(int companyId)
+        //{
+        //    try
+        //    {
+        //        var results = await _estateAgentRepository.GetEstateAgentByIdAsync(companyId);
 
-                if (!results.Any())
-                {
-                    return NotFound();
-                }
+        //        if (!results.Any())
+        //        {
+        //            return NotFound();
+        //        }
 
-                return _mapper.Map<EstateAgentModel[]>(results);
-            }
-            catch (Exception)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-            }
-        }
+        //        return _mapper.Map<EstateAgentModel[]>(results);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+        //    }
+        //}
     }
 }
