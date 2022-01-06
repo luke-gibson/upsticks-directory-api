@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using upsticks_directory_api.Data;
+using upsticks_directory_api.Data.Entities;
 using upsticks_directory_api.Models;
 
 namespace upsticks_directory_api.Controllers
@@ -23,39 +22,22 @@ namespace upsticks_directory_api.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("GetEstateAgent")]
-        public async Task<ActionResult<EstateAgentModel[]>> GetEstateAgent(bool includeAddresses = false)
-        {
-            try
-            {
-                var results = await _estateAgentRepository.GetAllEstateAgentsAsync(includeAddresses);
-
-                return _mapper.Map<EstateAgentModel[]>(results);
-            }
-            catch (Exception)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-            }
+        [HttpGet]
+        public async Task<List<EstateAgent>> GetEstateAgents()
+        {            
+            return await _estateAgentRepository.GetEstateAgents();
         }
 
-        //[HttpGet("GetEstateAgentById")]
-        //public async Task<ActionResult<EstateAgentModel[]>> GetEstateAgentById(int companyId)
-        //{
-        //    try
-        //    {
-        //        var results = await _estateAgentRepository.GetEstateAgentByIdAsync(companyId);
+        [HttpGet("{estateAgentId}")]
+        public async Task<EstateAgent> GetEstateAgentById(int estateAgentId)
+        {
+            return await _estateAgentRepository.GetEstateAgentById(estateAgentId);
+        }
 
-        //        if (!results.Any())
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        return _mapper.Map<EstateAgentModel[]>(results);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-        //    }
-        //}
+        [HttpPost]
+        public async Task<EstateAgent> AddEstateAgent([FromBody]EstateAgentModel estateAgent)
+        {
+            return await _estateAgentRepository.AddEstateAgent(estateAgent);
+        }
     }
 }

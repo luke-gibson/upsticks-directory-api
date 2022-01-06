@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace upsticks_directory_api.Data.Entities
 {
@@ -23,8 +18,6 @@ namespace upsticks_directory_api.Data.Entities
         [Required]
         public string addressEmail { get; set; }
         [Required]
-        public string addressTelephone { get; set; }
-        
-        public EstateAgentAddress estateAgentAddress { get; set; }
+        public string addressTelephone { get; set; }        
     }
 }

@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-using upsticks_directory_api.Data.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace upsticks_directory_api.Models
 {
     public class EstateAgentAddressModel
     {
         [Required]
-        public int estateAgentAddressId { get; set; }
+        public int EstateAgentAddressId { get; set; }
         [Required]
-        public int estateAgentId { get; set; }
+        public int EstateAgentId { get; set; }
         [Required]
-        public int addressId { get; set; }
-
-        public AddressesModel addresses { get; set; }
+        public int AddressId { get; set; }
     }
 }

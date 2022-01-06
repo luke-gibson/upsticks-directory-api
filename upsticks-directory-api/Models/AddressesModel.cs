@@ -5,19 +5,19 @@ namespace upsticks_directory_api.Models
     public class AddressesModel
     {
         [Required]
-        public int addressId { get; set; }
+        public int AddressId { get; set; }
         [Required]
-        public string addressLine1 { get; set; }
-        public string addressLine2 { get; set; }
+        public string AddressLine1 { get; set; }
+        public string AddressLine2 { get; set; }
         [Required]
-        public string addressTown { get; set; }
+        public string AddressTown { get; set; }
         [Required]
-        public string addressCounty { get; set; }
+        public string AddressCounty { get; set; }
         [Required]
-        public string addressPostcode { get; set; }
+        public string AddressPostcode { get; set; }
         [Required]
-        public string addressEmail { get; set; }
+        public string AddressEmail { get; set; }
         [Required]
-        public string addressTelephone { get; set; }
+        public string AddressTelephone { get; set; }
     }
 }

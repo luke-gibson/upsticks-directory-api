@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,65 +10,57 @@ namespace upsticks_directory_api.Data
     public class EstateAgentRepository : IEstateAgentRepository
     {
         private readonly DirectoryContext _directoryContext;
-        private readonly ILogger<DirectoryContext> _logger;
 
-        public EstateAgentRepository(DirectoryContext directoryContext, ILogger<DirectoryContext> logger)
+        public EstateAgentRepository(DirectoryContext directoryContext)
         {
             _directoryContext = directoryContext;
-            _logger = logger;
         }
 
-        public void Add<T>(T entity) where T : class
+        public async Task<EstateAgent> AddEstateAgent(EstateAgent estateAgent)
         {
-            _logger.LogInformation($"Adding an object of type {entity.GetType()} to the context.");
-            _directoryContext.Add(entity);
-        }
+            var result = await _directoryContext.EstateAgent.AddAsync(estateAgent);
+            await _directoryContext.SaveChangesAsync();
+            return result.Entity;
+        }       
 
-        public void Delete<T>(T entity) where T : class
+        public async Task<EstateAgent> GetEstateAgentById(int estateAgentId)
         {
-            _logger.LogInformation($"Removing an object of type {entity.GetType()} to the context.");
-            _directoryContext.Remove(entity);
+            return await _directoryContext.EstateAgent
+                .Where(ea => ea.EstateAgentId == estateAgentId)
+                .FirstOrDefaultAsync();
         }
 
-        public async Task<bool> SaveChangesAsync()
-        {
-            _logger.LogInformation($"Attempitng to save the changes in the context");
+        public async Task<List<EstateAgent>> GetEstateAgents()
+         => await _directoryContext.EstateAgent.ToListAsync();
 
-            // Only return success if at least one row was changed
-            return (await _directoryContext.SaveChangesAsync()) > 0;
-        }
+        //public async void DeleteEstateAgent(int estateAgentId)
+        //{
+        //    var result = await _directoryContext.EstateAgent
+        //        .FirstOrDefaultAsync(e => e.EstateAgentId == estateAgentId);
+        //    if (result != null)
+        //    {
+        //        _directoryContext.EstateAgent.Remove(result);
+        //        await _directoryContext.SaveChangesAsync();
+        //    }
+        //}
 
-        public async Task<EstateAgent[]> GetAllEstateAgentsAsync(bool includeAddresses = false)
-        {
-            _logger.LogInformation($"Getting all Estate Agents");
+        //public async Task<EstateAgent> UpdateEstateAgent(EstateAgent estateAgent)
+        //{
+        //    var result = await _directoryContext.EstateAgent
+        //        .FirstOrDefaultAsync(ea => ea.EstateAgentId == estateAgent.EstateAgentId);
 
-            IQueryable<EstateAgent> query = _directoryContext.EstateAgent;
+        //    if (result != null)
+        //    {
+        //        result.EstateAgentName = estateAgent.EstateAgentName;
+        //        result.EstateAgentTelephone = estateAgent.EstateAgentTelephone;
+        //        result.EstateAgentEmail = estateAgent.EstateAgentEmail;
 
-            if (includeAddresses)
-            {
-                query = query
-                    .Include(x => x.estateAgentAddresses)
-                    .ThenInclude(y => y.addresses);
-            }
+        //        await _directoryContext.SaveChangesAsync();
 
-            // OrderBy Id
-            query = query.OrderByDescending(c => c.estateAgentId);
+        //        return result;
+        //    }
 
-            return await query.ToArrayAsync();
-        }
-
-        public async Task<EstateAgent[]> GetEstateAgentByIdAsync(int estateAgentId)
-        {
-            _logger.LogInformation($"Getting all EstateAgents with ID {estateAgentId}");
-
-            IQueryable<EstateAgent> query = _directoryContext.EstateAgent;
-
-            // Add Query
-            query = query
-              .Where(x => x.estateAgentId == estateAgentId)
-              .OrderByDescending(x => x.estateAgentId);
-
-            return await query.ToArrayAsync();
-        }
+        //    return null;
+        //}
     }
 }
